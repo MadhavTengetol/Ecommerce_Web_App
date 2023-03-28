@@ -1,5 +1,6 @@
 package com.ecommerce.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
@@ -12,9 +13,11 @@ public class ProductData {
 	private String productName;
 	@NotBlank(message = "Product category Should Not be Null")
 	private String category;
+	@Min(100)
 	private double unitPrice;
 	@NotBlank(message = "Product Image Url Should Not be Null")
 	private String imageUrl;
+	@Min(10)
 	private int stock;
 
 	public ProductData() {

@@ -19,6 +19,7 @@ public class UsersData {
 	private String email;
 
 	@NotNull
+	@Size(min = 10, max = 10)
 	private String phone;
 
 	@NotNull

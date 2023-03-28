@@ -36,7 +36,7 @@ public class AuthController {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	@PostMapping("/login")
+	@PostMapping({ "/login", "/signin" })
 	public ResponseEntity<UserLoginResponse> authorizeUser(@Valid @RequestBody UserLoginRequest data)
 			throws UserNotFoundException {
 		String email = data.getEmail();
@@ -52,7 +52,7 @@ public class AuthController {
 			throw new UserNotFoundException("Password is wrong");
 	}
 
-	@PostMapping("/register")
+	@PostMapping({ "/register", "/signup" })
 	public ResponseEntity<UsersData> registerUser(@Valid @RequestBody UsersData data) {
 		if (usersService.existsUsersname(data.getUserName())) {
 			throw new RuntimeException("Username Already Exists");

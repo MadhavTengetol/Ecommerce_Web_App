@@ -14,23 +14,6 @@ import org.springframework.stereotype.Component;
 public class EShopAspect {
 	private Logger logger = Logger.getLogger(getClass().getName());
 
-//	@Autowired
-//	private AuthorizeImpl auth;
-
-//	@Before("@annotation(com.ecommerce.security.Authorize) && args(request,..)")
-//	public void before(HttpServletRequest request) {
-//		if (!(request instanceof HttpServletRequest)) {
-//			throw new RuntimeException("request should be HttpServletRequesttype");
-//		}
-//
-//		if (auth.authorize(request.getHeader("Authorization"))) {
-//			request.setAttribute("userSession", "session information which cann be acces in controller");
-//		} else {
-//			throw new RuntimeException("auth error..!!!");
-//		}
-//
-//	}
-
 	@Pointcut("execution(* com.ecommerce.service.*.*(..))")
 	public void serviceCalls() {
 		logger.info("Service Package Called");

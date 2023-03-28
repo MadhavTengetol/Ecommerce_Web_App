@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,31 +33,34 @@ public class OrderItemController {
 
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public OrderItemData create(@RequestBody OrderItemData data) {
-		return service.create(data);
+	public ResponseEntity<OrderItemData> create(@RequestBody OrderItemData data) {
+		return new ResponseEntity<>(service.create(data), HttpStatus.CREATED);
 	}
 
 	@GetMapping()
-	public List<OrderItemData> getAll() {
+	public ResponseEntity<List<OrderItemData>> getAll() {
 		List<OrderItemData> itemList = service.findAll();
-		return itemList;
+		return new ResponseEntity<>(itemList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public OrderItemData getById(@PathVariable Long id) throws OrderItemNotFoundException {
+	public ResponseEntity<OrderItemData> getById(@PathVariable Long id) throws OrderItemNotFoundException {
 		OrderItemData item = service.findById(id);
 		if (item == null)
 			throw new OrderItemNotFoundException("Order Item not found for id : " + id);
-		return item;
+		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 
 	@PutMapping()
-	public OrderItemData updateOrderItem(@RequestBody OrderItemData data) {
-		return service.create(data);
+	public ResponseEntity<OrderItemData> updateOrderItem(@RequestBody OrderItemData data) {
+		return new ResponseEntity<>(service.create(data), HttpStatus.OK);
 	}
 
 	@DeleteMapping("{id}")
-	public boolean deleteItem(@PathVariable Long id) {
-		return service.delete(id);
+	public ResponseEntity<String> deleteItem(@PathVariable Long id) {
+		boolean result = service.delete(id);
+		if (result)
+			return new ResponseEntity<>("OrderItem Deleted.", HttpStatus.OK);
+		return new ResponseEntity<>("OrderItem Not Found", HttpStatus.NOT_FOUND);
 	}
 }

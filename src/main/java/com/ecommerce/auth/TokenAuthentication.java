@@ -43,9 +43,7 @@ public class TokenAuthentication {
 	}
 
 	public boolean validateToken(String token) {
-		try
-
-		{
+		try{
 			Jwts.parser().setSigningKey(secret).parse(token);
 			return true;
 		} catch (MalformedJwtException ex) {
